@@ -1,4 +1,5 @@
 const auth = require("../middleware/auth");
+const config = require("config");
 const { BooksModel } = require("../models/books.model");
 const express = require("express");
 const router = express.Router();
@@ -15,7 +16,7 @@ router.post("/create-section", auth, async (req, res) => {
              {
                "name": 'holiday',
                "meta": {
-                 "created": 10-12-2015,
+                 "created": '10-12-2015',
                  "entries": 3,
                },
                "entries":[],
@@ -34,15 +35,15 @@ router.post("/create-section", auth, async (req, res) => {
 router.get("/delete-section", auth, async (req, res) => {
   console.log(req.user)
   const books = await BooksModel.findById(req.user._id);
-  const deleteSection = BooksModel.update({
+  const deleteSection = BooksModel.update({"user_id":req.user._id},
     {$pull:'sections'}
-  })
+  )
   res.send(books)
 });
 
 router.get("/create-entry", auth, async (req, res) => {
   console.log(req.user)
-  const section = await BooksModel.findOne({"user_id":req.params.id})
+  const section = await BooksModel.findOne(req.user._id);
   if(section){
 
     const entry = await BooksModel.update(
@@ -69,16 +70,16 @@ router.get("/create-entry", auth, async (req, res) => {
 router.get("/delete-entry", auth, async (req, res) => {
   console.log(req.user)
   const books = await BooksModel.findById(req.user._id);
-  const deleteEntry = BooksModel.update({
+  const deleteEntry = BooksModel.update({},
     {$pull:{sections:'entries'}}
-  })
+  )
   res.send(books)
 });
 
 router.get("/update-entry", auth, async (req, res) => {
   console.log(req.user)
   const books = await BooksModel.findById(req.user._id);
-  
+
   res.send(books)
 });
 

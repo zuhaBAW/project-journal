@@ -16,7 +16,7 @@ if (!config.get("privateKey")) {
 //connect to mongodb. DB-access-name: application, DB-access-password: auxtkgbLpcfA11Gh
 mongoose
   .connect(
-    "mongodb+srv://application:auxtkgbLpcfA11Gh@cluster0-2rgim.mongodb.net/test?retryWrites=true&w=majority",
+    "mongodb+srv://application:auxtkgbLpcfA11Gh@cluster0-2rgim.mongodb.net/JournalDB?retryWrites=true&w=majority",
     { useNewUrlParser: true,  useUnifiedTopology: true, useCreateIndex: true }
   )
   .then(() => console.log("Connected to MongoDB..."))
@@ -32,5 +32,10 @@ app.use("/auth", authRoute);
 app.use("/users/edit", editUsersRoute);
 app.use("/channels", bookRoute);
 
-const port = process.env.PORT || 3000;
+app.get('/test',(req, res) =>{
+  res.send('ok');
+  console.log('fine');
+})
+
+const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
