@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const editUsersRoute = require("./routes/users.edit.route.js");
 const authRoute = require("./routes/auth.route.js");
 const bookRoute = require("./routes/books.route.js");
+const sampleRoute = require("./routes/sample.js");
 const express = require("express");
 const app = express();
 const cors = require('cors')
@@ -31,6 +32,7 @@ app.use(bodyParser.json());
 app.use("/auth", authRoute);
 app.use("/users/edit", editUsersRoute);
 app.use("/channels", bookRoute);
+app.use("/sample", sampleRoute);
 
 app.get('/test',(req, res) =>{
   res.send('ok');
