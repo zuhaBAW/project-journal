@@ -7,32 +7,27 @@ const router = express.Router();
 router.post("/create-section", auth, async (req, res) => {
   console.log(req.user)
   const books = await BooksModel.findOne({"user_id":req.params.id})
-  if(!sections){
+  if(!books.sections){
     const section = new BooksModel(
       {
 
           "user_id": req.params.id,
-           sections:[
-             {
-               "name": 'holiday',
-               "meta": {
-                 "created": '10-12-2015',
-                 "entries": 3,
-               },
-               "entries":[],
-             }
-           ]
-
-      }
+           "sections": req.body
+         }
     )
-        await section.save()
-        console.log(req.body);
-        console.log(section)
+    await section.save()
+    console.log(req.body);
+    console.log(section)
+  }
+  else{
+    console.log('section exists');
+
   }
   res.send(books)
+  await books.save()
 });
 
-router.get("/delete-section", auth, async (req, res) => {
+router.post("/delete-section", auth, async (req, res) => {
   console.log(req.user)
   const books = await BooksModel.findById(req.user._id);
   const deleteSection = BooksModel.update({"user_id":req.user._id},
@@ -41,9 +36,9 @@ router.get("/delete-section", auth, async (req, res) => {
   res.send(books)
 });
 
-router.get("/create-entry", auth, async (req, res) => {
+router.post("/create-entry", auth, async (req, res) => {
   console.log(req.user)
-  const section = await BooksModel.findOne(req.user._id);
+  const section = await BooksModel.findOne({"user_id":req.user._id});
   if(section){
 
     const entry = await BooksModel.update(
@@ -64,7 +59,7 @@ router.get("/create-entry", auth, async (req, res) => {
     res.send(entry)
     console.log(entry)
   }
-  res.send(books)
+  res.send(section)
 });
 
 router.get("/delete-entry", auth, async (req, res) => {

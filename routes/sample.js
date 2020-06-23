@@ -5,6 +5,7 @@ const express = require("express");
 const router = express.Router();
 
 router.post('/add', async (req, res) =>{
+  const error = "name already exists"
   const sample = await SampleModel.findOne({"name":req.body.name})
   if(!sample){
     const name = new SampleModel({
@@ -14,7 +15,7 @@ router.post('/add', async (req, res) =>{
     res.send('okay')
     console.log('working!');
   }else{
-    res.send('name already exists')
+    res.send(error)
   }
 
 })
