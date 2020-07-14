@@ -20,4 +20,17 @@ router.post('/add', async (req, res) =>{
 
 })
 
+router.post('/1', auth, async (req, res) => {
+  // const sample = await SampleModel.findById(req.user._id);
+  const post = new SampleModel({
+    'user_id':req.user._id,
+    'name':req.body.name,
+    'age':req.body.age
+  })
+  await post.save()
+  res.send(req.user)
+  // res.send(post)
+  console.log(req.user, post)
+})
+
 module.exports = router;

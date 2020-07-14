@@ -36,23 +36,24 @@ router.delete("/delete-section", auth, async (req, res) => {
   // console.log('deleted')
 });
 
-router.post("/create-entry/:name", auth, async (req, res) => {
+router.put("/create-entry/:name", auth, async (req, res, next) => {
   console.log(req.user)
-  // const section = await BooksModel.findOne({"user_id":req.user._id});
+   const section = await BooksModel.findOne({"user_id":req.user._id});
 
 
     const entry = await BooksModel.update(
-      {"secions.name":req.param.name},
-      {$push:{  'sections.$.entries':{
-                  "overview":{
-                    "title":req.body.title,
-                    "date":req.body.date,
-                    "imageUrl":req.body.imageUrl
-                  },
+      {'sections.name':req.params.name},
+      {$push:{  'sections.$.entrie':{
+                    "overview":{
+                      "title":req.body.title,
+                      "date":req.body.date,
+                      "imageUrl":req.body.imageUrl
+                    },
                 }
               }
-      },{upsert: true}
+      }//,{upsert: true}
     )
+    section.markModified('sections')
     res.send(entry)
     console.log(entry)
 
