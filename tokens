@@ -7,3 +7,22 @@ alex
 alex01@gmail.com
 alexpassword01
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjAzNDBhMzczMGMzYzE3ODY4MDI1YmQiLCJpYXQiOjE1OTQwNDg2NzZ9.Ad1WQ3zFAhUfmFCLMfoTR-pt3ygiZHR9MGq3FNEB4vY"
+
+"_id": "5f2a99cf803f6931a6eff6f9",
+"name": "john",
+"email": "john08@gmail.com",
+john08
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJhOTljZjgwM2Y2OTMxYTZlZmY2ZjkiLCJpYXQiOjE1OTY2Mjc0MDh9.aD23H6UCl5KHSq33vCP6XM0Xvfj4W5K82eyNWc2nSaE"
+
+    "_id": "5f2a9c624ae57531e067d499",
+    "name": "emma",
+    "email": "emmaa04@gmail.com",
+    password: emmaa04
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJhOWM2MjRhZTU3NTMxZTA2N2Q0OTkiLCJpYXQiOjE1OTY2MjgwNjZ9.RaRQGIgLZCBZ1cX5Ov6Uzu7sD99DZZvNDLQUKlpb0dU"
+
+    {
+        "_id": "5f2a9d7eda47fb31fd056e01",
+        "name": "emmah",
+        "email": "emmaah04@gmail.com",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJhOWQ3ZWRhNDdmYjMxZmQwNTZlMDEiLCJpYXQiOjE1OTY2MjgzNTB9.sTJqsBnOvgT-UymAOzZcirZPzyJA2uvDTYtDP_SohRU"
+    }

@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const { User, validateLoginData, validateUser } = require("../models/user.model");
+const { SectionModel } = require("../models/sections")
 const express = require("express");
 const router = express.Router();
 
@@ -32,6 +33,14 @@ router.post("/register", async (req, res) => {
     email: user.email,
     token: token
   });
+
+  // storing sections info
+    const sections = new SectionModel(
+          {
+            "user_id":user._id
+          }
+        )
+        await sections.save()
 
 });
 

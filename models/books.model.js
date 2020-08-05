@@ -4,11 +4,10 @@ const BooksModel = mongoose.model('Books', {
   user_id: String,
   sections:{
     name:String,
-    meta:{
-      created:String,
-      entry:String
-    },
-    entries : {},
+    count:Number,
+    entries : {
+
+    }
   }
 })
 

@@ -25,6 +25,7 @@ const UserSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 255
   },
+  sections:{},
   meta: {}
 });
 
