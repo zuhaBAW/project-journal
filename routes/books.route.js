@@ -30,7 +30,11 @@ router.post("/create-section", auth, async (req, res) => {
 // adding section id to user
      const user = await User.findOneAndUpdate({"name":req.body.userName},
      {$push:
-      {'sections': section._id}
+      {'sections' :{
+        'name':req.body.name,
+        'section_id':section._id,
+        'count':0
+      }}
     })
     user.markModified('user')
     console.log(section._id)
@@ -38,16 +42,7 @@ router.post("/create-section", auth, async (req, res) => {
     console.log(user)
 
 // Adding section id,name to "sections"
-    const Sections = await SectionModel.findOneAndUpdate({'user_id':req.user._id},
-    {$push:
-    {'sections':{
-      'name':req.body.name,
-      'section_id':section._id,
-      'count':0
-    }}})
-    Sections.markModified('Sections')
-    await Sections.save
-    console.log(Sections)
+
 
   }else{
     res.send('section already exists')
@@ -97,6 +92,16 @@ router.put("/create-entry/:name", auth, async (req, res, next) => {
     console.log(req.body)
     res.send("added entry")
 
+//getting the count
+    const Sections = await BooksModel.findOne({"sections.name":req.params.name})
+    const count = Sections.sections.entries.length
+    console.log(count)
+
+    const Count = await SectionModel.findOneAndUpdate({"sections.name":req.params.name},
+    {$push:{'sections.count':count}},{upsert: true}
+
+  )
+  await Count.save()
 });
 
 router.put("/delete-entry/:name", auth, async (req, res, next) =>{

@@ -34,14 +34,6 @@ router.post("/register", async (req, res) => {
     token: token
   });
 
-  // storing sections info
-    const sections = new SectionModel(
-          {
-            "user_id":user._id
-          }
-        )
-        await sections.save()
-
 });
 
 router.post("/login", async (req , res) => {
@@ -65,7 +57,10 @@ router.post("/login", async (req , res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      token: token
+      token: token,
+      section: user.sections
+
+
     });
   });
 })

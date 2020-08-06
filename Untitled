@@ -1,0 +1,10 @@
+const Sections = await SectionModel.findOneAndUpdate({'user_id':req.user._id},
+{$push:
+{'sections':{
+  'name':req.body.name,
+  'section_id':section._id,
+  'count':0
+}}})
+Sections.markModified('Sections')
+await Sections.save
+console.log(Sections)
