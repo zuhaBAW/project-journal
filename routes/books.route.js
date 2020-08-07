@@ -2,7 +2,7 @@ const auth = require("../middleware/auth");
 const config = require("config");
 const { BooksModel } = require("../models/books.model");
 const { User } = require("../models/user.model");
-const { SectionModel } = require("../models/sections")
+const { EntryModel } = require("../models/entry.model")
 const express = require("express");
 const router = express.Router();
 
@@ -27,7 +27,7 @@ router.post("/create-section", auth, async (req, res) => {
      res.send('section created')
      console.log('section created')
 
-// adding section id to user
+// adding section id, name and count of entries to user
      const user = await User.findOneAndUpdate({"name":req.body.userName},
      {$push:
       {'sections' :{
@@ -41,8 +41,13 @@ router.post("/create-section", auth, async (req, res) => {
     await user.save()
     console.log(user)
 
-// Adding section id,name to "sections"
-
+    const entry = new EntryModel(
+      {
+        "section_id":section._id,
+        "section_name":req.body.name
+      }
+    )
+    entry.save()
 
   }else{
     res.send('section already exists')
@@ -50,9 +55,9 @@ router.post("/create-section", auth, async (req, res) => {
 
 })
 
-router.get("/get-section", auth, async (req, res) => {
+router.get("/get-section/:name", auth, async (req, res) => {
   console.log(req.user)
-  const books = await BooksModel.find({"user_id":req.user._id})
+  const books = await EntryModel.findOne({"section_name":req.params.name})
   console.log(books)
   res.send(books)
 })
@@ -83,9 +88,9 @@ router.put("/update-section/:name", auth, async (req, res) => {
 router.put("/create-entry/:name", auth, async (req, res, next) => {
   console.log(req.user)
    const section = await BooksModel.findOne({"user_id":req.user._id});
-   const entry = await BooksModel.update(
-      {'sections.name':req.params.name},
-      {$push:{  'sections.entries':req.body}
+   const entry = await EntryModel.update(
+      {'section_name':req.params.name},
+      {$push:{'entries':req.body}
       } ,{upsert: true}
     )
     console.log(entry)
@@ -93,16 +98,22 @@ router.put("/create-entry/:name", auth, async (req, res, next) => {
     res.send("added entry")
 
 //getting the count
-    const Sections = await BooksModel.findOne({"sections.name":req.params.name})
-    const count = Sections.sections.entries.length
+    const Sections = await EntryModel.findOne({"section_name":req.params.name})
+    const count = Sections.entries.length
     console.log(count)
 
-    const Count = await SectionModel.findOneAndUpdate({"sections.name":req.params.name},
-    {$push:{'sections.count':count}},{upsert: true}
+    const Count = await User.findOneAndUpdate({"sections.name":req.params.name},
+    {$set:{'sections.count':count}}
 
   )
   await Count.save()
 });
+
+router.get("/get-entry/:name", auth, async (req, res) => {
+  console.log(req.user)
+  const entry = await EntryModel.findOne({"entries.entry.name":req.params.name})
+  res.send(entry.entries)
+})
 
 router.put("/delete-entry/:name", auth, async (req, res, next) =>{
   console.log(req.user)

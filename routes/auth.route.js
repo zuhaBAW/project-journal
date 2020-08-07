@@ -1,7 +1,6 @@
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const { User, validateLoginData, validateUser } = require("../models/user.model");
-const { SectionModel } = require("../models/sections")
 const express = require("express");
 const router = express.Router();
 
