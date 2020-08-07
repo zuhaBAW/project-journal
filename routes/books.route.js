@@ -11,14 +11,14 @@ router.post("/create-section", auth, async (req, res) => {
    console.log(req.user)
   const name = req.body.name
   const checkedbooks = books.filter((book)=>{
-    return book.sections.name === name
+    return book.section_name === name
   })
   // console.log(checkedbooks)
   if(checkedbooks.length === 0){
     const section = new BooksModel(
      {
        "user_id": req.user._id,
-       "sections": req.body
+       "section_name": req.body.name
      })
     // const section_id = (section._id).str
 
@@ -28,7 +28,7 @@ router.post("/create-section", auth, async (req, res) => {
      console.log('section created')
 
 // adding section id, name and count of entries to user
-     const user = await User.findOneAndUpdate({"name":req.body.userName},
+     const user = await User.findOneAndUpdate({"_id":req.user._id},
      {$push:
       {'sections' :{
         'name':req.body.name,
@@ -40,14 +40,6 @@ router.post("/create-section", auth, async (req, res) => {
     console.log(section._id)
     await user.save()
     console.log(user)
-
-    const entry = new EntryModel(
-      {
-        "section_id":section._id,
-        "section_name":req.body.name
-      }
-    )
-    entry.save()
 
   }else{
     res.send('section already exists')
@@ -87,18 +79,27 @@ router.put("/update-section/:name", auth, async (req, res) => {
 
 router.put("/create-entry/:name", auth, async (req, res, next) => {
   console.log(req.user)
-   const section = await BooksModel.findOne({"user_id":req.user._id});
-   const entry = await EntryModel.update(
-      {'section_name':req.params.name},
-      {$push:{'entries':req.body}
-      } ,{upsert: true}
-    )
-    console.log(entry)
-    console.log(req.body)
-    res.send("added entry")
-
+   const sections = await BooksModel.find({"user_id":req.user._id, "section_name":req.params.name});
+   console.log(sections)
+   const checkedSections = sections.filter((section)=>{
+     return section.entries.name === req.body.name
+   })
+   // console.log(checkedbooks)
+   if(checkedSections.length === 0){
+     const entry = await BooksModel.update(
+       {'section_name':req.params.name},
+       {$push:{'entries':req.body}
+       } ,{upsert: true}
+     )
+     console.log(entry)
+     console.log(req.body)
+     res.send("added entry")
+  }
+  else{
+    res.send('entry already exists')
+  }
 //getting the count
-    const Sections = await EntryModel.findOne({"section_name":req.params.name})
+    const Sections = await BooksModel.findOne({"section_name":req.params.name})
     const count = Sections.entries.length
     console.log(count)
 
