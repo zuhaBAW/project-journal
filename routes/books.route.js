@@ -13,7 +13,7 @@ router.post("/create-section", auth, async (req, res) => {
   const checkedbooks = books.filter((book)=>{
     return book.section_name === name
   })
-  // console.log(checkedbooks)
+  console.log(checkedbooks)
   if(checkedbooks.length === 0){
     const section = new BooksModel(
      {
@@ -49,9 +49,16 @@ router.post("/create-section", auth, async (req, res) => {
 
 router.get("/get-section/:name", auth, async (req, res) => {
   console.log(req.user)
-  const books = await EntryModel.findOne({"section_name":req.params.name})
+  const books = await BooksModel.findOne({"section_name":req.params.name})
   console.log(books)
   res.send(books)
+})
+
+router.get("/get-all-sections", auth, async (req, res) => {
+  console.log(req.user)
+  const books = await User.findOne({"_id":req.user._id})
+  console.log(books.sections)
+  res.send(books.sections)
 })
 
 router.delete("/delete-section", auth, async (req, res) => {
@@ -79,13 +86,9 @@ router.put("/update-section/:name", auth, async (req, res) => {
 
 router.put("/create-entry/:name", auth, async (req, res, next) => {
   console.log(req.user)
-   const sections = await BooksModel.find({"user_id":req.user._id, "section_name":req.params.name});
+   const sections = await BooksModel.find({"user_id":req.user._id});
    console.log(sections)
-   const checkedSections = sections.filter((section)=>{
-     return section.entries.name === req.body.name
-   })
-   // console.log(checkedbooks)
-   if(checkedSections.length === 0){
+
      const entry = await BooksModel.update(
        {'section_name':req.params.name},
        {$push:{'entries':req.body}
@@ -94,25 +97,22 @@ router.put("/create-entry/:name", auth, async (req, res, next) => {
      console.log(entry)
      console.log(req.body)
      res.send("added entry")
-  }
-  else{
-    res.send('entry already exists')
-  }
+
 //getting the count
-    const Sections = await BooksModel.findOne({"section_name":req.params.name})
-    const count = Sections.entries.length
-    console.log(count)
-
-    const Count = await User.findOneAndUpdate({"sections.name":req.params.name},
-    {$set:{'sections.count':count}}
-
-  )
-  await Count.save()
+  //   const Sections = await BooksModel.findOne({"section_name":req.params.name})
+  //   const count = Sections.entries.length
+  //   console.log(count)
+  //
+  //   const Count = await User.findOneAndUpdate({"sections.name":req.params.name},
+  //   {$set:{'sections.count':count}}
+  //
+  // )
+  // await Count.save()
 });
 
 router.get("/get-entry/:name", auth, async (req, res) => {
   console.log(req.user)
-  const entry = await EntryModel.findOne({"entries.entry.name":req.params.name})
+  const entry = await BooksModel.findOne({"user_id":req.user.i, "section_name":req.params.name})
   res.send(entry.entries)
 })
 

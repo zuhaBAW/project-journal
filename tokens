@@ -1,28 +1,21 @@
-maleeha123
-maleehabaw123@gmail.com
-maleehapassword
-token:yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWRlZWI0YWVkNDU0MjE3ODgyM2NjYTMiLCJpYXQiOjE1OTE2Njc1MzB9.pCpcsglpF8OVBvZmoVidzbsCDLrhnSxLAyXZqikTRXc"
-
-alex
-alex01@gmail.com
-alexpassword01
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjAzNDBhMzczMGMzYzE3ODY4MDI1YmQiLCJpYXQiOjE1OTQwNDg2NzZ9.Ad1WQ3zFAhUfmFCLMfoTR-pt3ygiZHR9MGq3FNEB4vY"
-
-"_id": "5f2a99cf803f6931a6eff6f9",
-"name": "john",
-"email": "john08@gmail.com",
-john08
-"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJhOTljZjgwM2Y2OTMxYTZlZmY2ZjkiLCJpYXQiOjE1OTY2Mjc0MDh9.aD23H6UCl5KHSq33vCP6XM0Xvfj4W5K82eyNWc2nSaE"
-
-    "_id": "5f2a9c624ae57531e067d499",
-    "name": "emma",
-    "email": "emmaa04@gmail.com",
-    password: emmaa04
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJhOWM2MjRhZTU3NTMxZTA2N2Q0OTkiLCJpYXQiOjE1OTY2MjgwNjZ9.RaRQGIgLZCBZ1cX5Ov6Uzu7sD99DZZvNDLQUKlpb0dU"
-
-    {
-        "_id": "5f2a9d7eda47fb31fd056e01",
-        "name": "emmah",
-        "email": "emmaah04@gmail.com",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJhOWQ3ZWRhNDdmYjMxZmQwNTZlMDEiLCJpYXQiOjE1OTY2MjgzNTB9.sTJqsBnOvgT-UymAOzZcirZPzyJA2uvDTYtDP_SohRU"
-    }
+{
+    "_id": "5f2e49cc40d504495c3c11f4",
+    "name": "alex",
+    "email": "alex01@gmail.com",
+    password: alexpass01,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJlNDljYzQwZDUwNDQ5NWMzYzExZjQiLCJpYXQiOjE1OTY4NjkwNjh9.lAeyHdGwun4YEIYWpNKd__RgS6o5898cV0iaagkjKec"
+}
+{
+    "_id": "5f2e4a1140d504495c3c11f5",
+    "name": "john",
+    "email": "john01@gmail.com",
+    password:johnpass01,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJlNGExMTQwZDUwNDQ5NWMzYzExZjUiLCJpYXQiOjE1OTY4NjkxMzd9.q6fV0JrPsJLheMMxZ1orS2KZOMfkUFXQWZpOgRHIaIs"
+}
+{
+    "_id": "5f2e4a4740d504495c3c11f6",
+    "name": "emmah",
+    "email": "emmah01@gmail.com",
+    password: emmahpass01
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjJlNGE0NzQwZDUwNDQ5NWMzYzExZjYiLCJpYXQiOjE1OTY4NjkxOTF9.4I_0HqxUdzPjtHNy6MHoVEKl0oCNkAZPwk0Z0QAVoVU"
+}
