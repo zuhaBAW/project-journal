@@ -145,6 +145,11 @@ router.get('/count/:name', auth, async (req, res) => {
      // {$set:{'sections.count':count}})
 })
 
+router.get('/get-all-entry/:name', auth, async (req,res) => {
+  const Books = await BooksModel.findOne({'section_name':req.params.name})
+  res.send(Books.entries)
+})
+
 router.get("/get-entry/:name/:entryName", auth, async (req, res) => {
   console.log(req.user)
   const Books = await BooksModel.findOne({"section_name":req.params.name})
