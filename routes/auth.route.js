@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const { User, validateLoginData, validateUser } = require("../models/user.model");
+const { SectionModel } = require("../models/sections")
 const express = require("express");
 const router = express.Router();
 
@@ -33,6 +34,14 @@ router.post("/register", async (req, res) => {
     token: token
   });
 
+  // storing sections info
+    const sections = new SectionModel(
+          {
+            "user_id":user._id
+          }
+        )
+        await sections.save()
+
 });
 
 router.post("/login", async (req , res) => {
@@ -57,9 +66,7 @@ router.post("/login", async (req , res) => {
       name: user.name,
       email: user.email,
       token: token,
-      section: user.sections
-
-
+      
     });
   });
 })

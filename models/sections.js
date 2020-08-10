@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
 
-const EntryModel = mongoose.model('Entry', :entries{})
+const SectionModel = mongoose.model('Sections',{ user_id : String, sections :{}})
 
-exports.EntryModel = EntryModel;
+exports.SectionModel = SectionModel;
