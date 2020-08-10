@@ -145,10 +145,21 @@ router.get('/count/:name', auth, async (req, res) => {
      // {$set:{'sections.count':count}})
 })
 
-router.get("/get-entry/:name", auth, async (req, res) => {
+router.get("/get-entry/:name/:entryName", auth, async (req, res) => {
   console.log(req.user)
-  const entry = await BooksModel.findOne({"user_id":req.user.i, "section_name":req.params.name})
-  res.send(entry.entries)
+  const Books = await BooksModel.findOne({"section_name":req.params.name})
+  console.log(Books);
+  const book = Books.entries
+  console.log(book)
+  const sections = book.map((a) => {
+     var  Entry =a.entry.name
+     console.log(Entry)
+    if(Entry === req.params.entryName){
+      res.send(a)
+    }else{
+      res.send('entry doesnt exists')
+    }
+  })
 
 })
 
