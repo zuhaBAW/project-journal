@@ -37,9 +37,8 @@ router.post("/create-section", auth, async (req, res) => {
         'count':0
       }}},{upsert: true}
     )
-    // Section.markModified('sections')
+
     console.log(section._id)
-    // await Section.save()
     console.log(Section)
 
   }else{
@@ -50,16 +49,25 @@ router.post("/create-section", auth, async (req, res) => {
 
 router.get("/get-section/:name", auth, async (req, res) => {
   console.log(req.user)
-  const books = await BooksModel.findOne({"section_name":req.params.name})
+  const books = await SectionModel.findOne({"user_id":req.user._id})
   console.log(books)
-  res.send(books)
+  book = books.sections
+  const sections = book.map((section) => {
+     console.log(section.name)
+    if(section.name === req.params.name){
+      res.send(section)
+    }else{
+      res.send('section doesnt exists')
+    }
+  })
+
 })
 
 router.get("/get-all-sections", auth, async (req, res) => {
   console.log(req.user)
-  const books = await User.findOne({"_id":req.user._id})
-  console.log(books.sections)
-  res.send(books.sections)
+  const section = await SectionModel.findOne({"user_id":req.user._id})
+  console.log(section.sections)
+  res.send(section.sections)
 })
 
 router.delete("/delete-section", auth, async (req, res) => {
