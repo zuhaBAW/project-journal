@@ -20,14 +20,12 @@ router.post("/create-section", auth, async (req, res) => {
        "user_id": req.user._id,
        "section_name": req.body.name
      })
-    // const section_id = (section._id).str
-
-      section.save()
+     section.save()
       console.log(section._id)
      res.send('section created')
      console.log('section created')
 
-// adding section
+// adding section to section model
      const Section = await SectionModel.findOneAndUpdate({"user_id":req.user._id},
      {$push:
       {'sections' :{
@@ -146,8 +144,12 @@ router.get('/count/:name', auth, async (req, res) => {
 })
 
 router.get('/get-all-entry/:name', auth, async (req,res) => {
-  const Books = await BooksModel.findOne({'section_name':req.params.name})
-  res.send(Books.entries)
+  const Books = await BooksModel.findOne({'user_id':req.user._id, 'section_name':req.params.name})
+  const book = {section_name:Books.section_name,
+    entries:Books.entries}
+  console.log(book)
+  console.log(Books.entries)
+  res.send(book)
 })
 
 router.get("/get-entry/:name/:entryName", auth, async (req, res) => {
