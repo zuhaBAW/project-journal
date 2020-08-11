@@ -14,7 +14,7 @@ router.post("/create-section", auth, async (req, res) => {
     return book.section_name === name
   })
   console.log(checkedbooks)
-  if(checkedbooks.length === 0){
+  if(checkedbooks.length === 0 && name !== ""){
     const section = new BooksModel(
      {
        "user_id": req.user._id,
@@ -40,7 +40,7 @@ router.post("/create-section", auth, async (req, res) => {
     console.log(Section)
 
   }else{
-    res.send('section already exists')
+    res.send('section failed to create')
   }
 
 })
