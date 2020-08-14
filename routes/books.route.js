@@ -156,26 +156,29 @@ router.get("/get-entry/:name/:entryName", auth, async (req, res) => {
   const book = Books.entries
   console.log(book)
   const sections = book.map((a) => {
-     var  Entry =a.entry.name
-     console.log(Entry)
+      var  Entry =a.name
+      console.log(Entry, req.params.entryName)
     if(Entry === req.params.entryName){
+      
+      console.log(a)
       res.send(a)
-    }else{
-      res.send('entry doesnt exists')
+    }
+    else{
+      console.log('entry doesnt exists')
     }
   })
 
 })
 
-router.put("/delete-entry/:name", auth, async (req, res, next) =>{
+router.put("/delete-entry/:name/:Ename", auth, async (req, res, next) =>{
   console.log(req.user)
-  const books = await BooksModel.find(req.user._id);
+  const books = await BooksModel.find({"user_id":req.user._id});
 
-  const Name = req.body.name;
+  const Name = req.params.Ename;
 
   if(Name){
     const deleteEntry = await BooksModel.update({'sections.name':req.params.name},
-    {$pull:{"sections.entries":{"name":Name}}
+    {$pull:{"entries":{"name":Name}}
 
     })
     res.send('deleted entry')
