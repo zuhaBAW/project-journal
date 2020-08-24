@@ -155,13 +155,17 @@ router.get("/get-entry/:name/:entryName", auth, async (req, res) => {
   console.log(Books);
   const book = Books.entries
   console.log(book)
+
   const sections = book.map((a) => {
       var  Entry =a.name
       console.log(Entry, req.params.entryName)
     if(Entry === req.params.entryName){
-      
+      const entry = {
+        'section_name': Books.section_name,
+        'entry' : a
+      }
       console.log(a)
-      res.send(a)
+      res.send(entry)
     }
     else{
       console.log('entry doesnt exists')
